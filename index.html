@@ -51,7 +51,7 @@
       });
 
       // Add markers for all conferences
-      businesses.forEach(confe => {
+      conferences.forEach(confe => {
         if (!confe.coords || confe.coords.length !== 2) return; // skip invalid coords
 
         const el = document.createElement('div');
