@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    
-  </style>
 </head>
 <body>
 
@@ -53,17 +50,14 @@
         }
       });
 
-      // Add markers for conferences
-      conferences.forEach(confe => {
-        let color = "#812383"; // default
-        if (confe.membershipType === "Full") color = "#d19c32";
-        else if (confe.membershipType === "Observer") color = "#173751";
-        else if (confe.membershipType === "Associate") color = "#404040";
+      // Add markers for all conferences
+      businesses.forEach(confe => {
+        if (!confe.coords || confe.coords.length !== 2) return; // skip invalid coords
 
         const el = document.createElement('div');
-        el.style.width = '10px';
-        el.style.height = '10px';
-        el.style.backgroundColor = color;
+        el.style.width = '12px';
+        el.style.height = '12px';
+        el.style.backgroundColor = "#812383"; // purple for all
         el.style.borderRadius = '50%';
         el.style.border = '2px solid white';
         el.style.cursor = 'pointer';
@@ -72,12 +66,12 @@
           .setLngLat(confe.coords)
           .setPopup(new mapboxgl.Popup().setHTML(`
             <strong>${confe.name}</strong><br>
-            <a href="${confe.website}" target="_blank">${confe.website}</a>
+            ${confe.address ? `${confe.address}<br>` : ""}
+            ${confe.website ? `<a href="${confe.website}" target="_blank">${confe.website}</a>` : ""}
           `))
           .addTo(map);
       });
     });
-
   </script>
 
 </body>
