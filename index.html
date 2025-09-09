@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CRF Map of Past Conferences</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script src="data.js"></script>
+  
+  <script>
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [25, 8],
+      zoom: 1.2,
+      projection: 'mercator'
+    });
+
+    map.on('load', () => {
+      // Hide country labels
+      const countryLabelLayers = [
+        'country-label',
+        'country-label-sm',
+        'country-label-md',
+        'country-label-lg'
+      ];
+      countryLabelLayers.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
+        }
+      });
+
+      // Hide country borders
+      const borderLayers = [
+        'admin-0-boundary',
+        'admin-0-boundary-bg',
+        'admin-0-boundary-disputed',
+        'admin-1-boundary'
+      ];
+      borderLayers.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
+        }
+      });
+
+      // Add markers for conferences
+      conferences.forEach(confe => {
+        let color = "#812383"; // default
+        if (confe.membershipType === "Full") color = "#d19c32";
+        else if (confe.membershipType === "Observer") color = "#173751";
+        else if (confe.membershipType === "Associate") color = "#404040";
+
+        const el = document.createElement('div');
+        el.style.width = '10px';
+        el.style.height = '10px';
+        el.style.backgroundColor = color;
+        el.style.borderRadius = '50%';
+        el.style.border = '2px solid white';
+        el.style.cursor = 'pointer';
+
+        new mapboxgl.Marker({ element: el })
+          .setLngLat(confe.coords)
+          .setPopup(new mapboxgl.Popup().setHTML(`
+            <strong>${confe.name}</strong><br>
+            <a href="${confe.website}" target="_blank">${confe.website}</a>
+          `))
+          .addTo(map);
+      });
+    });
+
+  </script>
+
+</body>
+</html>
