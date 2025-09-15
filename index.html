@@ -23,6 +23,12 @@
       projection: 'mercator'
     });
 
+    // Disable zooming
+    map.scrollZoom.disable();    // disables scroll wheel and touchpad pinch-zoom
+    //map.doubleClickZoom.disable(); 
+    //map.boxZoom.disable();
+    map.touchZoomRotate.disable(); // disables pinch zoom and rotation on touch devices
+
     map.on('load', () => {
       // Hide country labels
       const countryLabelLayers = [
@@ -65,6 +71,7 @@
         new mapboxgl.Marker({ element: el })
           .setLngLat(confe.coords)
           .setPopup(new mapboxgl.Popup().setHTML(`
+            ${confe.logo ? `<img class="popup-logo" src="./logo/${confe.logo}" alt="${confe.name} logo" /><br>` : ""}
             <strong>${confe.name}</strong><br>
             ${confe.address ? `${confe.address}<br>` : ""}
             ${confe.website ? `<a href="${confe.website}" target="_blank">${confe.website}</a>` : ""}
