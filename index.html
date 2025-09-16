@@ -15,11 +15,22 @@
   <script src="data.js"></script>
   
   <script>
+
+    // Set zoom depending on screen width
+    let initialZoom;
+    if (window.innerWidth >= 768) {
+      // Desktop / tablets
+      initialZoom = 1.2;
+    } else {
+      // Mobile
+      initialZoom = 0.2;
+    }
+
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/light-v11',
       center: [25, 8],
-      zoom: 1.2,
+      zoom: initialZoom,
       projection: 'mercator'
     });
 

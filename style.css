@@ -5,10 +5,23 @@ body {
 }
 
 #map {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh; /* full screen by default */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  #map {
+    width: 100vw;
+    height: 40vh;
+  }
 }
 
 .mapboxgl-popup-content img {
   height: 100px;
+}
+
+.mapboxgl-popup-content strong{
+  text-decoration: none;
+  font-size: 18px;
 }
