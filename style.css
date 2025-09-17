@@ -13,7 +13,7 @@ body {
 @media (max-width: 768px) {
   #map {
     width: 100vw;
-    height: 40vh;
+    height: 65vw;
   }
 }
 
