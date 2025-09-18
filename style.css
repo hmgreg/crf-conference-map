@@ -7,13 +7,14 @@ body {
 #map {
   width: 100vw;
   height: 100vh; /* full screen by default */
+  max-height: 900px;
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
   #map {
     width: 100vw;
-    height: 65vw;
+    height: 252px;
   }
 }
 
