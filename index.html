@@ -85,7 +85,7 @@
             ${confe.logo ? `<img class="popup-logo" src="./logo/${confe.logo}" alt="${confe.name} logo" /><br>` : ""}
             <strong>${confe.name}</strong><br>
             ${confe.address ? `${confe.address}<br>` : ""}
-            ${confe.website ? `<a href="${confe.website}" target="_blank">${confe.website}</a>` : ""}
+            ${confe.website ? `<a class="popup-link" href="${confe.website}" target="_blank">Website</a>` : ""}
           `))
           .addTo(map);
       });
